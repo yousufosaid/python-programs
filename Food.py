@@ -2,8 +2,8 @@
 -------------------------------------------------------
 Food class definition.
 -------------------------------------------------------
-Author:  David Brown
-ID:      999999999
+Author:  Yousuf Osiad
+ID:      210793270
 Email:   dbrown@wlu.ca
 Section: CP164 Spring 2021
 __updated__ = "2021-05-17"
