@@ -2,12 +2,6 @@
 -------------------------------------------------------
 Linked version of the Queue ADT.
 -------------------------------------------------------
-Author:  David Brown
-ID:      999999999
-Email:   dbrown@wlu.ca
-Term:    Spring 2021
-__updated__ = "2021-06-04"
--------------------------------------------------------
 """
 from copy import deepcopy
 
