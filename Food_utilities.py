@@ -5,12 +5,11 @@ Food class utility functions.
 Author:  David Brown
 ID:      999999999
 Email:   dbrown@wlu.ca
-Section: CP164 Spring 2021
-__updated__ = "2021-05-17"
+Section: CP164 C
+__updated__ = "2019-04-27"
 -------------------------------------------------------
 """
 from Food import Food
-
 
 
 def get_food():
@@ -23,33 +22,15 @@ def get_food():
         food - a completed food object (Food).
     -------------------------------------------------------
     """
-    name = input("Enter name of food: ")
+    name = input("Name: ")
     print("Origin")
-    print("""0 Canadian
-1 Chinese
-2 Indian
-3 Ethiopian
-4 Mexican
-5 Greek
-6 Japanese
-7 Italian
-8 American
-9 Scottish
-10 New Zealand
-11 English""")
-    origin = int(input(":"))
-    vegetarian = input("Is the food vegetarian(Y/N): ")
-    calories = int(input("Enter calories: "))
-    
-    
-    if vegetarian == "Y":
-        is_vegetarian = True
-    else:
-        is_vegetarian = False
-        
-    food = Food(name,origin,is_vegetarian,calories)
-    
-
+    print(Food.origins())
+    origin = int(input(": "))
+    s = input("Vegetarian (Y/N): ")
+    # Accept a range of values for vegetarian
+    is_vegetarian = s.upper() in ('Y', 'TRUE', '1', 'T', 'YES')
+    calories = int(input("Calories: "))
+    food = Food(name, origin, is_vegetarian, calories)
     return food
 
 
@@ -66,17 +47,8 @@ def read_food(line):
         food - contains the data from line (Food)
     -------------------------------------------------------
     """
-    line.strip()
-    line = line.split("|")
-    
-    name = line[0]
-    origin = int(line[1])
-    is_vegetarian = eval(line[2])
-    calories = int(line[3])
-    
-    food = Food(name,origin,is_vegetarian,calories)
-    
-
+    data = line.strip().split("|")
+    food = Food(data[0], int(data[1]), data[2] == "True", int(data[3]))
     return food
 
 
@@ -84,24 +56,20 @@ def read_foods(file_variable):
     """
     -------------------------------------------------------
     Reads a file of food strings into a list of Food objects.
-    Use: foods = read_foods(file_variable)
+    Use: foods = read_food(file_variable)
     -------------------------------------------------------
     Parameters:
-        file_variable - an open file of food data (file)
+        file_variable - a file of food data (file)
     Returns:
-        foods - a list of food objects (list of Food)
+        foods - a list of food objects (list of food)
     -------------------------------------------------------
     """
-    read = file_variable.readlines()
+    file_variable.seek(0)
     foods = []
 
-    
-    for line in read:
-        set_food = line.strip().split("|")
-        food = Food(str(set_food[0]),int(set_food[1]),eval(set_food[2]),int(set_food[3]))
+    for line in file_variable:
+        food = read_food(line)
         foods.append(food)
-        
-        
     return foods
 
 
@@ -111,7 +79,6 @@ def write_foods(file_variable, foods):
     Writes a list of food objects to a file.
     file_variable contains the objects in foods as strings in the format
           name|origin|is_vegetarian|calories
-    foods is unchanged.
     Use: write_foods(file_variable, foods)
     -------------------------------------------------------
     Parameters:
@@ -122,24 +89,14 @@ def write_foods(file_variable, foods):
     -------------------------------------------------------
     """
     for food in foods:
-        file_variable.write(str(food.name))
-        file_variable.write("|")
-        file_variable.write(str(food.origin))
-        file_variable.write("|")
-        file_variable.write(str(food.is_vegetarian))
-        file_variable.write("|")
-        file_variable.write(str(food.calories))
-        file_variable.write("\n")
-            
-
-    
+        food.write(file_variable)
+    return
 
 
 def get_vegetarian(foods):
     """
     -------------------------------------------------------
     Creates a list of vegetarian foods.
-    foods is unchanged.
     Use: v = get_vegetarian(foods)
     -------------------------------------------------------
     Parameters:
@@ -151,9 +108,8 @@ def get_vegetarian(foods):
     veggies = []
 
     for food in foods:
-        if food.is_vegetarian == True:
+        if food.is_vegetarian:
             veggies.append(food)
-
     return veggies
 
 
@@ -161,7 +117,6 @@ def by_origin(foods, origin):
     """
     -------------------------------------------------------
     Creates a list of foods by origin.
-    foods is unchanged.
     Use: v = by_origin(foods, origin)
     -------------------------------------------------------
     Parameters:
@@ -174,12 +129,10 @@ def by_origin(foods, origin):
     assert origin in range(len(Food.ORIGIN))
 
     origins = []
-    
+
     for food in foods:
         if food.origin == origin:
             origins.append(food)
-    
-
     return origins
 
 
@@ -187,7 +140,6 @@ def average_calories(foods):
     """
     -------------------------------------------------------
     Determines the average calories in a list of foods.
-    foods is unchanged.
     Use: avg = average_calories(foods)
     -------------------------------------------------------
     Parameters:
@@ -197,14 +149,15 @@ def average_calories(foods):
     -------------------------------------------------------
     """
     total = 0
-    num = 0
+    count = len(foods)
 
     for food in foods:
-        total = total + food.calories
-        num = num + 1
-        
-    avg = total/num
+        total += food.calories
 
+    if count > 0:
+        avg = total // count
+    else:
+        avg = 0
     return avg
 
 
@@ -212,7 +165,6 @@ def calories_by_origin(foods, origin):
     """
     -------------------------------------------------------
     Determines the average calories in a list of foods.
-    foods is unchanged.
     Use: a = calories_by_origin(foods, origin)
     -------------------------------------------------------
     Parameters:
@@ -223,22 +175,19 @@ def calories_by_origin(foods, origin):
     -------------------------------------------------------
     """
     assert origin in range(len(Food.ORIGIN))
-    
-    origins = []
+
     total = 0
-    num = 0
-    
+    count = 0
+
     for food in foods:
         if food.origin == origin:
-            origins.append(food)
-            
-            
-    for origin in origins:
-        total = total + origin.calories
-        num = num + 1
-    
-    avg = total/num
-    
+            total += food.calories
+            count += 1
+
+    if count > 0:
+        avg = total // count
+    else:
+        avg = 0
     return avg
 
 
@@ -246,7 +195,6 @@ def food_table(foods):
     """
     -------------------------------------------------------
     Prints a formatted table of foods, sorted by name.
-    foods is unchanged.
     Use: food_table(foods)
     -------------------------------------------------------
     Parameters:
@@ -255,13 +203,14 @@ def food_table(foods):
         None
     -------------------------------------------------------
     """
-    print("Food                                Origin       Vegetarian Calories")
-    print("----------------------------------- ------------ ---------- --------")
+    foods.sort()
+    print("{:35s} {:12s} {:10s} {:8s}".format(
+        "Food", "Origin", "Vegetarian", "Calories"))
+    print("{} {} {} {}".format("-" * 35, "-" * 12, "-" * 10, "-" * 8))
 
     for food in foods:
-        
-        print(f"{food.name:<36}{Food.ORIGIN[food.origin]:<18}{str(food.is_vegetarian):<9}{food.calories:>5}")
-
+        print("{:35s} {:12s} {:>10} {:8,d}".format(
+            food.name, Food.ORIGIN[food.origin], str(food.is_vegetarian), food.calories))
     return
 
 
@@ -269,7 +218,6 @@ def food_search(foods, origin, max_cals, is_veg):
     """
     -------------------------------------------------------
     Searches for foods that fit certain conditions.
-    foods is unchanged.
     Use: results = food_search(foods, origin, max_cals, is_veg)
     -------------------------------------------------------
     Parameters:
@@ -283,20 +231,10 @@ def food_search(foods, origin, max_cals, is_veg):
     -------------------------------------------------------
     """
     assert origin in range(-1, len(Food.ORIGIN))
+
     result = []
-    
-    if is_veg == False:
-        for food in foods:
-            if food.origin == origin and food.calories <= max_cals:
-                result.append(food)
-            
-    else:
-        for food in foods:
-            if food.origin == origin and food.calories <= max_cals and food.is_vegetarian == is_veg:
-                result.append(food)
-                
-                
-                
-                
-    return result
+
+    for food in foods:
+        if (origin == -1 or food.origin == origin) and (max_cals == 0 or food.calories <= max_cals) and (not is_veg or food.is_vegetarian):
+            result.append(food)
     return result

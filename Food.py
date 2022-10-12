@@ -2,11 +2,11 @@
 -------------------------------------------------------
 Food class definition.
 -------------------------------------------------------
-Author:  Yousuf Osiad
-ID:      210793270
+Author:  David Brown
+ID:      999999999
 Email:   dbrown@wlu.ca
-Section: CP164 Spring 2021
-__updated__ = "2021-05-17"
+Section: CP164 C
+__updated__ = "2019-04-27"
 -------------------------------------------------------
 """
 
@@ -33,16 +33,14 @@ class Food:
         Use: print(Food.origins())
         -------------------------------------------------------
         Returns:
-            string - A numbered list of valid food origins (str)
+            string - A numbered list of food origins.
         -------------------------------------------------------
         """
-        num = len(Food.ORIGIN)
         string = ""
-        
-        for i in range (num):
-            string = string + f"{i:>2} {Food.ORIGIN[i]}"+"\n"
-        
 
+        for i in range(len(Food.ORIGIN)):
+            string += """{:2d} {}
+""".format(i, Food.ORIGIN[i])
         return string
 
     def __init__(self, name, origin, is_vegetarian, calories):
@@ -55,7 +53,7 @@ class Food:
             name - food name (str)
             origin - food origin (int)
             is_vegetarian - whether food is vegetarian (boolean)
-            calories - caloric content of food (int >= 0)
+            calories - caloric content of food (int > 0)
         Returns:
             A new Food object (Food)
         -------------------------------------------------------
@@ -81,15 +79,16 @@ class Food:
             string - the formatted contents of food (str)
         -------------------------------------------------------
         """
-        
-        string = f"""Name:       {self.name:}
-Origin:     {Food.ORIGIN[self.origin]}
-Vegetarian: {self.is_vegetarian}
-Calories:   {self.calories:}"""
-        
+        if self.calories is None:
+            # is a key
+            string = "{}, {}".format(self.name, Food.ORIGIN[self.origin])
+        else:
+            # full data set
+            string = """Name:       {}
+Origin:     {}
+Vegetarian: {}
+Calories:   {:,d}""".format(self.name, Food.ORIGIN[self.origin], self.is_vegetarian, self.calories)
         return string
-
-  
 
     def __eq__(self, target):
         """
@@ -107,20 +106,20 @@ Calories:   {self.calories:}"""
             target.name.lower(), target.origin)
         return result
 
-    def __lt__(self, target):
+    def __lt__(self, rs):
         """
         -------------------------------------------------------
         Determines if this food comes before another.
-        Use: f < target
+        Use: f < rs
         -------------------------------------------------------
         Parameters:
-            target - food to compare to (Food)
+            rs - [right side] food to compare to (Food)
         Returns:
-            result - True if food precedes target, False otherwise (boolean)
+            result - True if food precedes rs, False otherwise (boolean)
         -------------------------------------------------------
         """
         result = (self.name.lower(), self.origin) < \
-            (target.name.lower(), target.origin)
+            (rs.name.lower(), rs.origin)
         return result
 
     def __le__(self, target):
@@ -143,7 +142,7 @@ Calories:   {self.calories:}"""
         """
         -------------------------------------------------------
         Writes a single line of food data to an open file.
-        Use: f.write(file_variable)
+        Use: f.write( file_variable )
         -------------------------------------------------------
         Parameters:
             file_variable - an open file of food data (file)
@@ -184,5 +183,3 @@ Calories:   {self.calories:}"""
         for c in self.name:
             value = value + ord(c)
         return value
-    
-
