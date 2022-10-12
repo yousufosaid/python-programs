@@ -5,261 +5,161 @@
 Author:  Yousuf Osaid
 ID:      210793270
 Email:   osai3270l@mylaurier.ca
-__updated__ = "2022-01-06"
+__updated__ = "2022-01-17"
 -------------------------------------------------------
 """
 # Imports
-
-
+from Stack_array import Stack
 # Constants
 
-def clean_list(values):
+def stack_combine(source1, source2):
     """
     -------------------------------------------------------
-    Removes all duplicate values from a list: values contains
-    only one copy of each of its integers. The order of values
-    must be preserved.
-    Use: clean_list(values)
+    Combines two source stacks into a target stack.
+    When finished, the contents of source1 and source2 are interlaced
+    into target and source1 and source2 are empty.
+    Use: target = stack_combine(source1, source2)
     -------------------------------------------------------
     Parameters:
-        values - a list of integers (list of int)
+        source1 - a stack (Stack)
+        source2 - another stack (Stack)
+    Returns:
+        target - the contents of the source1 and source2
+            are interlaced into target (Stack)
+    -------------------------------------------------------
+    """
+    target = Stack()
+    s1=[]
+    s2=[]
+    
+    
+    for element1 in source1:
+        s1.append(element1)
+        
+        
+    for element2 in source2:
+        s2.append(element2)
+        
+        
+    s1 = s1[::-1]   
+    s2 = s2[::-1]
+    
+
+    for x in range(max(len(s1), len(s2))):
+        if x < len(s1):
+            target.push(s1[x])
+        if x < len(s2):
+            target.push(s2[x])
+            
+    
+    source1.pop()
+    source2.pop()     
+        
+    return target
+
+def stack_reverse(source):
+    """
+    -------------------------------------------------------
+    Reverses the contents of a stack.
+    Use: stack_reverse(source)
+    -------------------------------------------------------
+    Parameters:
+        source - a Stack (Stack)
     Returns:
         None
     -------------------------------------------------------
     """
-    cleaned = []
-    for i in values:
-        if i not in cleaned:
-            cleaned.append(i)
-     
-    print(f"Values: {values}")     
-    print(f"Cleaned: {cleaned}")
+    s=[]
     
-    return None
-    
-
-
-def dsmvwl(s):
-    """
-    -------------------------------------------------------
-    Disemvowels a string. out contains all the s[i]acters in s
-    that are not vowels. ('y' is not considered a vowel.) Case is preserved.
-    Use: out = dsmvl(s)
-    -------------------------------------------------------
-    Parameters:
-       s - a string (str)
-    Returns:
-       out - s with the vowels removed (str)
-    -------------------------------------------------------
-    """
-    out = ""
-    vowels = ["a","e","i","o","u","A","O","U","E","I"]
-    for i in range(len(s)-1):
-        if s[i] not in vowels:
-            out = out + s[i]
-            
-    return out
-
-def file_analyze(fv):
-    """
-    -------------------------------------------------------
-    Analyzes the characters in a file.
-    The contents of the file must be unchanged.
-    Use: u, l, d, w, r = file_analyze(fv)
-    -------------------------------------------------------
-    Parameters:
-        fv - an already open file reference (file variable)
-    Returns:
-        u - the number of uppercase letters in the file (int)
-        l - the number of lowercase letters in the file (int)
-        d - the number of digits in the file (int)
-        w - the number of whitespace characters in the file (int)
-        r - the number of remaining characters in the file (int)
-    -------------------------------------------------------
-    """
-    u=0
-    l=0
-    d=0
-    w=0
-    r=0
-    read_file=fv.read()
-    
-    for read in read_file:
-        read = fv.readline()
-        if read.isupper() == True:
-            u = u + 1
-        elif read.isupper() == False:
-            l = l + 1
-        elif read.isdigit() == True:
-            d = d + 1
-        elif read.isspace() == True:
-            w = w + 1
-        else:
-            r= r+1
-            
-    return u,l,d,w,r
-
-def is_leap_year(year):
-    """
-    -------------------------------------------------------
-    Leap year determination.
-    Use: leap_year = is_leap_year(year)
-    -------------------------------------------------------
-    Parameters:
-        year - year to determine if it is a leap year (int > 0)
-    Returns:
-        leap_year - True if year is a leap year, False otherwise (boolean)
-    -------------------------------------------------------
-    """
-    leap_year = False
-    
-    if year%4 == 0 and year%100 == 0:
-        leap_year =True
+    for element in source:
+        s.append(element)
         
-    return leap_year
-
-
-
-def is_palindrome(s):
+    for i in range(len(s)):
+        source.pop()
+        
+    s=s[::-1]
+        
+    for i in range(len(s)-1,-1,-1):
+        source.push(s[i])
+        
+def is_palindrome_stack(string):
     """
     -------------------------------------------------------
-    Determines if s is a palindrome. Ignores case, spaces, and
-    punctuation in s.
-    Use: palindrome = is_palindrome(s)
+    Determines if string is a palindrome. Ignores case, digits, spaces, and
+    punctuation in string.
+    Use: palindrome = is_palindrome_stack(string)
     -------------------------------------------------------
     Parameters:
-        s - a string (str)
+        string - a string (str)
     Returns:
-        palindrome - True if s is a palindrome, False otherwise (boolean)
+        palindrome - True if string is a palindrome, False otherwise (bool)
     -------------------------------------------------------
     """
-    s= s.lower()
-    palindrome = True
+    compare = ""
+    s=Stack()
+    palindrome = False
+    ALPHA = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o"
+             ,"p","q","r","s","t","u","v","w","x","y","z"]
+    string = string.lower()
+    string = ''.join([i for i in string if i in ALPHA])
+    leng = len(string)
     
-    for i in range (0,len(s)-1,1):
-        if s[i-1] != s[-i]:
+    if leng%2 == 0:
+        half=string[:int((leng/2))]
+        for i in half:
+            s.push(i)
+        
+        for element in s:
+            compare=compare+element
             
-            palindrome = False
-            
-    return palindrome
-
-def max_diff(a):
-    """
-    -------------------------------------------------------
-    Returns maximum absolute difference between adjacent values in a list.
-    a must be unchanged.
-    Use: md = max_diff(a)
-    -------------------------------------------------------
-    Parameters:
-        a - a list of values (list of int)
-    Returns:
-        md - the largest absolute difference between adjacent
-            values in a list (int)
-    -------------------------------------------------------
-    """
-    md = 0
-    for i in range (len(a)-1):
-        diff = abs(a[i]-a[i+1])
-        if diff > md:
-            md = diff
-                
-    return md
-
-def matrix_transpose(a):
-    """
-    -------------------------------------------------------
-    Transpose the contents of matrix a.
-    Use: b = matrix_transpose(a):
-    -------------------------------------------------------
-    Parameters:
-        a - a 2D list (list of lists of ?)
-    Returns:
-        b - the transposed matrix (list of lists of ?)
-    -------------------------------------------------------
-    """
-
-    b = [[a[j][i] for j in range(len(a))] for i in range(len(a[0]))]
-    
-    return b
-
-def matrix_stats(a):
-    """
-    -------------------------------------------------------
-    Determines the smallest, largest, total, and average of
-    the values in the 2D list a. You may assume there is at
-    least one value in a.
-    a must be unchanged.
-    Use: small, large, total, average = matrix_stats(a):
-    -------------------------------------------------------
-    Parameters:
-        a - a 2D list of numbers (2D list of float)
-    Returns:
-        small - the smallest number in a (float)
-        large - the largest number in a (float)
-        total - the total of all numbers in a (float)
-        average - the average of all numbers in a (float)
-    -------------------------------------------------------
-    """
-    small = a[0][0]
-    large= a[0][0]
-    total=0
-    count = 0
-    
-    
-    for j in range(len(a)):
-        for i in range(len(a[0])):
-            if a[j][i] < small:
-                small = a[j][i]
-            elif a[j][i] > large:
-                large = a[j][i]
-            total = total + a[j][i]
-            count +=1
-            
-    average = total/count
-    
-    return small,large,total,average
-
-def pig_latin(word):
-    """
-    -------------------------------------------------------
-    Converts a word to Pig Latin. The conversion is:
-    - if a word begins with a vowel, add "way" to the end of the word.
-    - if the word begins with consonants, move the leading consonants to
-    the end of the word and add "ay" to the end of that.
-    "y" is treated as a consonant if it is the first character in the word,
-    and as a vowel for anywhere else in the word.
-    Preserve the case of the word - i.e. if the first character of word
-    is upper-case, then the new first character should also be upper case.
-    Use: pl = pig_latin(word)
-    -------------------------------------------------------
-    Parameters:
-        word - a string to convert to Pig Latin (str)
-    Returns:
-        pl - the Pig Latin version of word (str)
-    ------------------------------------------------------
-    """
-    pl = ""
-    x= word.upper()
-    vowel = ('A','E','I','O','U')
-    count = 0
-    
-    
-    
-    if x[0] in vowel:
-        pl = word+"way"
+        if string[int(leng/2):] == compare:
+            palindrome = True
+        
     else:
-        for i in range(len(word)-1):
-            if x[i] in vowel:
-                break
-            count+=1
-            
+        half=string[:int((leng-1)/2)]
+        for i in half:
+            s.push(i)
         
-        temp = word[count:]+word[0:count]+"ay"
-       
-        if word[0].isupper():
-            pl = temp[0].upper()+temp[1:].lower()
+        for element in s:
+            compare=compare+element
             
-        else:
-            pl=temp
-                  
-    return pl
+        if string[int((leng+1)/2):] == compare:
+            palindrome = True
+        
+        
+    
+    
+    return palindrome
+    
+def reroute(opstring, values_in):
+    """
+    -------------------------------------------------------
+    Reroutes values in a list according to a operating string and
+    returns a new list of values. values_in is unchanged.
+    In opstring, 'S' means push onto stack,
+    'X' means pop from stack into values_out.
+    Use: values_out = reroute(opstring, values_in)
+    -------------------------------------------------------
+    Parameters:
+        opstring - String containing only 'S' and 'X's (str)
+        values_in - A valid list (list of ?)
+    Returns:
+        values_out - if opstring is valid then values_out contains a
+            reordered version of values_in, otherwise returns
+            None (list of ?)
+    -------------------------------------------------------
+    """
+    stack= Stack()
+    values_out=[]
+    count = 0
+    
+    for element in opstring:
+        if element == "S":
+            stack.push(values_in[count])
+            count = count + 1
+            
+        elif element == "X":
+            value = stack.pop()
+            values_out.append(value)
+            
+    return values_out,stack

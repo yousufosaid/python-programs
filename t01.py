@@ -5,33 +5,41 @@
 Author:  Yousuf Osaid
 ID:      210793270
 Email:   osai3270l@mylaurier.ca
-__updated__ = "2022-01-14"
+__updated__ = "2022-01-17"
 -------------------------------------------------------
 """
 # Imports
-from Food_utilities import by_origin,read_foods
+from Stack_array import Stack
+from functions import stack_combine
 # Constants
+source1 = Stack()
+source2 = Stack()
 
-def func():
-    """
-    -------------------------------------------------------
-    description
-    Use: 
-    -------------------------------------------------------
-    Parameters:
-        name - description (type)
-    Returns:
-        name - description (type)
-    ------------------------------------------------------
-    """
-file_variable = open("foods.txt","r")
-foods = read_foods(file_variable)
-file_variable.close()
+source1.push(5)
+source1.push(8)
+source1.push(12)
+source1.push(8)
 
-o = int(input("Enter origin: "))
+source2.push(3)
+source2.push(6)
+source2.push(1)
+source2.push(7)
+source2.push(9)
+source2.push(14)
 
-origins = by_origin(foods, o)
+print("Source 1:")
+for element in source1:
+    print(element)
+print()
+print("Source 2:")
+for element in source2:
+    print(element)
+print()
 
-for origin in origins:
-    print (origin)
-    print()
+target = stack_combine(source1, source2)
+
+print("Target: ")
+for element in target:
+    print(element)
+
+

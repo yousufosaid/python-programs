@@ -5,11 +5,12 @@
 Author:  Yousuf Osaid
 ID:      210793270
 Email:   osai3270l@mylaurier.ca
-__updated__ = "2022-01-14"
+__updated__ = "2022-01-24"
 -------------------------------------------------------
 """
 # Imports
-from Food_utilities import read_foods,calories_by_origin
+from Stack_array import Stack
+from functions import stack_reverse
 # Constants
 
 def func():
@@ -24,11 +25,19 @@ def func():
         name - description (type)
     ------------------------------------------------------
     """
-file_variable = open("foods.txt","r")
-foods = read_foods(file_variable)
-file_variable.close()
+source = Stack()
 
-origin = int(input("Enter origin: "))
 
-a = calories_by_origin(foods, origin)
-print(f"Average: {a}")
+source.push(20)
+source.push(30)
+
+print("Original: ")
+for i in source:
+    print(i)
+print()
+
+stack_reverse(source)
+
+print("Reversed: ")
+for i in source:
+    print(i)
