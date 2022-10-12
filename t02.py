@@ -5,11 +5,11 @@
 Author:  Yousuf Osaid
 ID:      210793270
 Email:   osai3270l@mylaurier.ca
-__updated__ = "2022-01-14"
+__updated__ = "2022-01-12"
 -------------------------------------------------------
 """
 # Imports
-from Food_utilities import read_foods,average_calories
+from functions import dsmvwl
 # Constants
 
 def func():
@@ -24,9 +24,8 @@ def func():
         name - description (type)
     ------------------------------------------------------
     """
-file_variable = open("foods.txt","r")
-foods = read_foods(file_variable)
-file_variable.close()
+s= input("Enter sentence: ")
 
-avg = average_calories(foods)
-print(avg)
+out=dsmvwl(s)
+print(f"""Sentence: {s}
+Disemvowelled: {out}""")
