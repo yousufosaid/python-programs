@@ -2,12 +2,6 @@
 -------------------------------------------------------
 linked version of the Priority Queue ADT.
 -------------------------------------------------------
-Author:  David Brown
-ID:      999999999
-Email:   dbrown@wlu.ca
-Term:    Winter 2020
-__updated__ = "2020-11-02"
--------------------------------------------------------
 """
 from copy import deepcopy
 
