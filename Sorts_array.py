@@ -2,12 +2,6 @@
 -------------------------------------------------------
 Array versions of various sorts.
 -------------------------------------------------------
-Author:  David Brown
-ID:      999999999
-Email:   dbrown@wlu.ca
-Term:    Winter 2020
-__updated__ = "2020-01-16"
--------------------------------------------------------
 """
 # Imports
 from math import log, ceil
