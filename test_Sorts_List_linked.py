@@ -2,12 +2,6 @@
 -------------------------------------------------------
 Tests various linked sorting functions.
 -------------------------------------------------------
-Author:  David Brown
-ID:      999999999
-Email:   dbrown@wlu.ca
-Section: CP164 C
-__updated__ = "2019-04-27"
--------------------------------------------------------
 """
 # Imports
 import random
