@@ -2,12 +2,6 @@
 -------------------------------------------------------
 Array version of the Sorted_List ADT.
 -------------------------------------------------------
-Author:  David Brown
-ID:      999999999
-Email:   dbrown@wlu.ca
-Section: CP164
-__updated__ = "2022-02-10"
--------------------------------------------------------
 """
 # pylint: disable=protected-access
 
