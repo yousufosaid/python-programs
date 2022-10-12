@@ -2,11 +2,6 @@
 -------------------------------------------------------
 Linked versions of various sorts. Implemented on linked Deques.
 -------------------------------------------------------
-Author:  David Brown
-ID:      999999999
-Email:   dbrown@wlu.ca
-__updated__ = "2021-04-09"
--------------------------------------------------------
 """
 from math import log
 from Deque_linked import Deque
