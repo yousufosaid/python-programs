@@ -1,14 +1,4 @@
-"""
--------------------------------------------------------
-Array-based list version of the Hash Set ADT.
--------------------------------------------------------
-Author:  David Brown
-ID:      999999999
-Email:   dbrown@wlu.ca
-Section: CP164 A
-__updated__ = "2021-06-13"
--------------------------------------------------------
-"""
+
 # pylint: disable=protected-access
 
 # Imports
