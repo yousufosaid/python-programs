@@ -2,12 +2,6 @@
 -------------------------------------------------------
 Array version of the list ADT.
 -------------------------------------------------------
-Author:  David Brown
-ID:      999999999
-Email:   dbrown@wlu.ca
-Section: CP164
-__updated__ = "2022-02-13"
--------------------------------------------------------
 """
 # pylint: disable=protected-access
 
