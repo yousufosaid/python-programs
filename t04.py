@@ -5,11 +5,11 @@
 Author:  Yousuf Osaid
 ID:      210793270
 Email:   osai3270l@mylaurier.ca
-__updated__ = "2022-01-12"
+__updated__ = "2022-01-14"
 -------------------------------------------------------
 """
 # Imports
-from functions import is_leap_year
+from Food_utilities import food_table,read_foods
 # Constants
 
 def func():
@@ -24,7 +24,8 @@ def func():
         name - description (type)
     ------------------------------------------------------
     """
-year = int(input("Enter year: "))
-leap_year = is_leap_year(year)
+file_variable = open("foods.txt","r")
+foods = read_foods(file_variable)
+file_variable.close()
 
-print(leap_year)
+food_table(foods)
